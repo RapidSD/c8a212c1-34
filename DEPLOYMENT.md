@@ -1,15 +1,16 @@
-# c8a212c1-34
+# Deployment Guide for c8a212c1-34
 
-This project was deployed from Bolt.new and is configured for automatic deployment to Cloudflare Workers.
+This project has been configured for automatic deployment to Cloudflare Workers.
 
-## 🚀 Deployment Status
+## Repository
 
-Your Shopify store is automatically deployed when you push to the main branch.
+- **URL**: https://github.com/rapidsd/c8a212c1-34
+- **Deployment**: Automated via GitHub Actions
 
-**Managed Infrastructure:**
-- ✅ **GitHub Repository**: Hosted and managed automatically
-- ✅ **Cloudflare Workers**: Deployed using managed Cloudflare account
-- ✅ **GitHub Actions**: Configured for automatic deployment
+## Important Notes
+
+### Environment Variables
+
 
 ## 🔧 Environment Variables Setup
 
