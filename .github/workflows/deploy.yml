@@ -29,6 +29,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Create .env file from secrets
+        run: |
+          echo "NEXT_PUBLIC_SHOPIFY_SHOP=${{ secrets.SHOPIFY_SHOP }}" >> .env
+          echo "NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env
+          echo "SHOPIFY_REVALIDATION_SECRET=${{ secrets.SHOPIFY_REVALIDATION_SECRET || '' }}" >> .env
+          echo "COMPANY_NAME=${{ secrets.COMPANY_NAME || 'My Store' }}" >> .env
+          echo "SITE_NAME=${{ secrets.SITE_NAME || 'My Shopify Store' }}" >> .env
+
       - name: Build project
         run: |
           # For Next.js projects without env vars, create dummy env file
