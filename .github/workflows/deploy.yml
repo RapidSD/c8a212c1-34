@@ -1,0 +1,60 @@
+name: Deploy to Cloudflare Workers
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Cloudflare Workers
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+        if: true
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      # Shopify credentials are configured as GitHub repository secrets
+      # GitHub and Cloudflare credentials are pre-configured in managed infrastructure
+      - name: Setup environment variables
+        run: |
+          echo "✅ Using GitHub secrets for Shopify configuration"
+          echo "NEXT_PUBLIC_SHOPIFY_SHOP=${{ secrets.NEXT_PUBLIC_SHOPIFY_SHOP }}" >> .env
+          echo "NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env
+          if [ -f .env ]; then
+            echo "📝 Environment file created successfully"
+          else
+            echo "⚠️ Failed to create environment file"
+          fi
+      - name: Build project
+        run: pnpm run build
+
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+          workingDirectory: .
+          
+      - name: Post deployment info
+        run: |
+          echo "🚀 Deployment completed!"
+          echo "📝 Your app should be available at: https://c8a212c1-34.workers.dev"
+          echo "🛍️ Shopify credentials are loaded from the project's .env file"
+          echo "☁️ GitHub and Cloudflare managed by deployment infrastructure"
