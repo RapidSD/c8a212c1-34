@@ -35,7 +35,7 @@ NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=your_storefront_access_token
 ## 🌐 Live URLs
 
 - **Production**: https://c8a212c1-34.workers.dev
-- **Repository**: https://github.com/RapidSD/c8a212c1-34
+- **Repository**: https://github.com/rapidsd/c8a212c1-34
 
 ## 📋 Deployment Process
 
@@ -50,7 +50,7 @@ If you want to run this project locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/RapidSD/c8a212c1-34.git
+   git clone https://github.com/rapidsd/c8a212c1-34.git
    cd c8a212c1-34
    ```
 
